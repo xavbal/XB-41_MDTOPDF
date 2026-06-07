@@ -1,0 +1,14 @@
+{
+  "name": "xb-41-mdtopdf",
+  "version": "1.0.0",
+  "description": "XB-41 MDtoPDF — convierte Markdown a PDF de calidad con drag & drop, tipografia configurable y opcion sin emojis.",
+  "type": "module",
+  "main": "src/server.mjs",
+  "scripts": {
+    "start": "node src/server.mjs"
+  },
+  "dependencies": {
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0"
+  }
+}

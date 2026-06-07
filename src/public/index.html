@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>XB-41 · MDtoPDF</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <h1><span class="badge">XB-41</span> MDtoPDF</h1>
+    <p class="sub">Arrastra un <code>.md</code>, ajusta la tipografía y exporta a PDF.</p>
+  </header>
+
+  <main>
+    <section class="left">
+      <div id="drop" class="drop">
+        <div class="drop-inner">
+          <div class="drop-icon">⬇</div>
+          <p><strong>Arrastra aquí tu archivo .md</strong></p>
+          <p class="muted">o <button id="browse" class="link">selecciónalo</button></p>
+          <p id="fileinfo" class="fileinfo"></p>
+        </div>
+        <input id="file" type="file" accept=".md,.markdown,.txt" hidden />
+      </div>
+
+      <div class="controls">
+        <label>
+          Tipografía
+          <select id="font"></select>
+        </label>
+        <label>
+          Tema
+          <select id="theme"></select>
+        </label>
+        <label>
+          Tamaño (pt)
+          <input id="fontSize" type="number" min="8" max="20" step="0.5" value="11" />
+        </label>
+        <label>
+          Página
+          <select id="pageSize">
+            <option value="A4">A4</option>
+            <option value="letter">Carta</option>
+            <option value="legal">Legal</option>
+          </select>
+        </label>
+        <label>
+          Márgenes
+          <select id="margins">
+            <option value="24mm 22mm 22mm">Normales</option>
+            <option value="15mm 15mm">Estrechos</option>
+            <option value="32mm 30mm">Amplios</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="export" class="btn primary" disabled>Exportar PDF</button>
+        <button id="exportHtml" class="btn" disabled>Exportar HTML</button>
+        <button id="exportTxt" class="btn" disabled>Exportar TXT</button>
+        <button id="exportNoEmoji" class="btn ghost" disabled>PDF sin emojis</button>
+        <button id="refresh" class="btn ghost" disabled>Actualizar vista</button>
+      </div>
+
+      <p id="status" class="status"></p>
+    </section>
+
+    <section class="right">
+      <div class="preview-head">Vista previa</div>
+      <iframe id="preview" title="vista previa"></iframe>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
