@@ -28,7 +28,7 @@ npm start
 - Selector de tipografía (fuentes del sistema: Segoe UI, Georgia, Cambria, Garamond, etc.).
 - **Temas**: Claro, Oscuro y Sepia (afectan a la vista previa y al PDF; el fondo se imprime a sangre completa).
 - Tamaño de fuente, tamaño de página (A4/Carta/Legal) y márgenes ajustables.
-- Exportar a **PDF**, **PDF sin emojis**, **HTML** y **TXT**.
+- Exportar a **PDF**, **PDF sin emojis**, **HTML** y **TXT**, con **diálogo "Guardar como"** para elegir carpeta y nombre (vía File System Access API; si el navegador no la soporta, descarga a la carpeta por defecto).
 - Vista previa en vivo con el mismo motor de render que el PDF.
 - Tipografía real: comillas y guiones curvos (`typographer`), numeración de página.
 

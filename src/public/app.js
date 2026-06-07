@@ -34,6 +34,32 @@ function getOptions(noEmojis) {
   };
 }
 
+async function saveBlob(blob, suggestedName, description, mime, ext) {
+  if (window.showSaveFilePicker) {
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName,
+        types: [{ description, accept: { [mime]: [ext] } }],
+      });
+      const writable = await handle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+      return handle.name;
+    } catch (e) {
+      if (e.name === "AbortError") return null;
+      // navegador sin permiso/soporte: cae a la descarga normal
+    }
+  }
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = suggestedName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(a.href);
+  return suggestedName;
+}
+
 async function loadFonts() {
   try {
     const { fonts, themes } = await (await fetch("/api/fonts")).json();
@@ -76,14 +102,9 @@ async function exportPdf(noEmojis) {
     });
     if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || res.statusText);
     const blob = await res.blob();
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = currentName + (noEmojis ? "_sin-emojis" : "") + ".pdf";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(a.href);
-    setStatus("PDF descargado: " + a.download, "ok");
+    const name = currentName + (noEmojis ? "_sin-emojis" : "") + ".pdf";
+    const saved = await saveBlob(blob, name, "Documento PDF", "application/pdf", ".pdf");
+    setStatus(saved ? "PDF guardado: " + saved : "Guardado cancelado.", saved ? "ok" : "");
   } catch (e) {
     setStatus("Error al exportar: " + e.message, "err");
   } finally {
@@ -104,14 +125,8 @@ async function exportHtml() {
     if (!res.ok) throw new Error(res.statusText);
     const html = await res.text();
     const blob = new Blob([html], { type: "text/html;charset=utf-8" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = currentName + ".html";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(a.href);
-    setStatus("HTML descargado: " + a.download, "ok");
+    const saved = await saveBlob(blob, currentName + ".html", "Documento HTML", "text/html", ".html");
+    setStatus(saved ? "HTML guardado: " + saved : "Guardado cancelado.", saved ? "ok" : "");
   } catch (e) {
     setStatus("Error al exportar HTML: " + e.message, "err");
   } finally {
@@ -119,7 +134,7 @@ async function exportHtml() {
   }
 }
 
-function exportTxt() {
+async function exportTxt() {
   if (currentMarkdown == null) return;
   setStatus("Exportando Texto Plano...", "busy");
   try {
@@ -128,14 +143,8 @@ function exportTxt() {
       .replace(/\[(.*?)\]\(.*?\)/g, '$1')
       .replace(/[#*`~_]/g, '');
     const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = currentName + ".txt";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(a.href);
-    setStatus("TXT descargado: " + a.download, "ok");
+    const saved = await saveBlob(blob, currentName + ".txt", "Texto plano", "text/plain", ".txt");
+    setStatus(saved ? "TXT guardado: " + saved : "Guardado cancelado.", saved ? "ok" : "");
   } catch (e) {
     setStatus("Error al exportar TXT: " + e.message, "err");
   }
