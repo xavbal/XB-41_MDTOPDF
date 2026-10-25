@@ -5,7 +5,8 @@
   "type": "module",
   "main": "src/server.mjs",
   "scripts": {
-    "start": "node src/server.mjs"
+    "start": "node src/server.mjs",
+    "test": "node scripts/test.mjs"
   },
   "dependencies": {
     "markdown-it": "^14.1.0",

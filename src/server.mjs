@@ -12,10 +12,18 @@ const PUBLIC = path.join(__dirname, "public");
 const PORT = process.env.PORT || 4141;
 
 const EDGE_CANDIDATES = [
+  process.env.CHROME_BIN,
+  process.env.EDGE_BIN,
   process.env["ProgramFiles(x86)"] &&
     path.join(process.env["ProgramFiles(x86)"], "Microsoft/Edge/Application/msedge.exe"),
   process.env.ProgramFiles &&
     path.join(process.env.ProgramFiles, "Microsoft/Edge/Application/msedge.exe"),
+  "/usr/bin/chromium",
+  "/usr/bin/chromium-browser",
+  "/usr/bin/google-chrome",
+  "/usr/bin/microsoft-edge",
+  "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
 ].filter(Boolean);
 
 function findEdge() {
@@ -57,6 +65,8 @@ function edgePrintToPdf(html) {
     const fileUrl = "file:///" + htmlPath.replace(/\\/g, "/");
     const args = [
       "--headless",
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
       "--disable-gpu",
       "--no-first-run",
       "--no-default-browser-check",
