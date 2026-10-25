@@ -1,5 +1,9 @@
 # XB-41 · MDtoPDF
 
+[Español](README.md) | [English](README.en.md) | [Català](README.ca.md) | [Deutsch](README.de.md) | [日本語](README.ja.md)
+
+---
+
 Convierte archivos **Markdown → PDF** de calidad de publicación, con interfaz de
 arrastrar y soltar, tipografía configurable y opción de exportar sin emojis.
 

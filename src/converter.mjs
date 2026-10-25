@@ -24,6 +24,9 @@ const FONT_STACKS = {
   "Book Antiqua": '"Book Antiqua", Palatino, serif',
   Consolas: 'Consolas, "Courier New", monospace',
   "Courier New": '"Courier New", Courier, monospace',
+  "Yu Gothic": '"Yu Gothic", "YuGothic", "Meiryo", sans-serif',
+  Meiryo: 'Meiryo, "Yu Gothic", sans-serif',
+  "Noto Sans JP": '"Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif',
 };
 
 export const FONT_NAMES = Object.keys(FONT_STACKS);
@@ -68,6 +71,7 @@ export function mdToHtml(markdown, opts = {}) {
     margins = "24mm 22mm 22mm",
     theme = "claro",
     title,
+    lang = "es",
   } = opts;
 
   let src = String(markdown ?? "");
@@ -117,7 +121,7 @@ strong { font-weight: 680; }
 `;
 
   return `<!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8"><title>${docTitle}</title>
+<html lang="${lang}"><head><meta charset="utf-8"><title>${docTitle}</title>
 <style>${css}</style></head>
 <body>${body}</body></html>`;
 }

@@ -8,8 +8,17 @@
 </head>
 <body>
   <header>
-    <h1><span class="badge">XB-41</span> MDtoPDF</h1>
-    <p class="sub">Arrastra un <code>.md</code>, ajusta la tipografía y exporta a PDF.</p>
+    <div class="header-top">
+      <h1><span class="badge">XB-41</span> MDtoPDF</h1>
+      <div class="lang-selector">
+        <button type="button" class="lang-btn active" data-lang="es" title="Español">ES</button>
+        <button type="button" class="lang-btn" data-lang="ca" title="Català">CA</button>
+        <button type="button" class="lang-btn" data-lang="de" title="Deutsch">DE</button>
+        <button type="button" class="lang-btn" data-lang="ja" title="日本語">JA</button>
+        <button type="button" class="lang-btn" data-lang="en" title="English">EN</button>
+      </div>
+    </div>
+    <p class="sub" data-i18n="sub">Arrastra un <code>.md</code>, ajusta la tipografía y exporta a PDF.</p>
   </header>
 
   <main>
@@ -17,8 +26,8 @@
       <div id="drop" class="drop">
         <div class="drop-inner">
           <div class="drop-icon">⬇</div>
-          <p><strong>Arrastra aquí tu archivo .md</strong></p>
-          <p class="muted">o <button id="browse" class="link">selecciónalo</button></p>
+          <p><strong data-i18n="dropTitle">Arrastra aquí tu archivo .md</strong></p>
+          <p class="muted"><span data-i18n="dropOr">o</span> <button id="browse" class="link" data-i18n="dropBrowse">selecciónalo</button></p>
           <p id="fileinfo" class="fileinfo"></p>
         </div>
         <input id="file" type="file" accept=".md,.markdown,.txt" hidden />
@@ -26,48 +35,48 @@
 
       <div class="controls">
         <label>
-          Tipografía
+          <span data-i18n="labelFont">Tipografía</span>
           <select id="font"></select>
         </label>
         <label>
-          Tema
+          <span data-i18n="labelTheme">Tema</span>
           <select id="theme"></select>
         </label>
         <label>
-          Tamaño (pt)
+          <span data-i18n="labelSize">Tamaño (pt)</span>
           <input id="fontSize" type="number" min="8" max="20" step="0.5" value="11" />
         </label>
         <label>
-          Página
+          <span data-i18n="labelPage">Página</span>
           <select id="pageSize">
             <option value="A4">A4</option>
-            <option value="letter">Carta</option>
+            <option value="letter" data-i18n="optLetter">Carta</option>
             <option value="legal">Legal</option>
           </select>
         </label>
         <label>
-          Márgenes
+          <span data-i18n="labelMargins">Márgenes</span>
           <select id="margins">
-            <option value="24mm 22mm 22mm">Normales</option>
-            <option value="15mm 15mm">Estrechos</option>
-            <option value="32mm 30mm">Amplios</option>
+            <option value="24mm 22mm 22mm" data-i18n="optMarginNormal">Normales</option>
+            <option value="15mm 15mm" data-i18n="optMarginNarrow">Estrechos</option>
+            <option value="32mm 30mm" data-i18n="optMarginWide">Amplios</option>
           </select>
         </label>
       </div>
 
       <div class="actions">
-        <button id="export" class="btn primary" disabled>Exportar PDF</button>
-        <button id="exportHtml" class="btn" disabled>Exportar HTML</button>
-        <button id="exportTxt" class="btn" disabled>Exportar TXT</button>
-        <button id="exportNoEmoji" class="btn ghost" disabled>PDF sin emojis</button>
-        <button id="refresh" class="btn ghost" disabled>Actualizar vista</button>
+        <button id="export" class="btn primary" disabled data-i18n="btnExport">Exportar PDF</button>
+        <button id="exportHtml" class="btn" disabled data-i18n="btnExportHtml">Exportar HTML</button>
+        <button id="exportTxt" class="btn" disabled data-i18n="btnExportTxt">Exportar TXT</button>
+        <button id="exportNoEmoji" class="btn ghost" disabled data-i18n="btnExportNoEmoji">PDF sin emojis</button>
+        <button id="refresh" class="btn ghost" disabled data-i18n="btnRefresh">Actualizar vista</button>
       </div>
 
       <p id="status" class="status"></p>
     </section>
 
     <section class="right">
-      <div class="preview-head">Vista previa</div>
+      <div class="preview-head" data-i18n="previewHead">Vista previa</div>
       <iframe id="preview" title="vista previa"></iframe>
     </section>
   </main>
