@@ -13,7 +13,7 @@ Verificado en el código, en GitHub y con mediciones del 25 de octubre de 2026:
 
 | Supuesto | Realidad | Qué implica |
 |---|---|---|
-| "Herramienta de consola" | Es una **app web local** (`npm start` → `localhost:4141`) con drag & drop. **No hay CLI.** | En r/commandline la tumbarían. Hay que publicar ahí **solo cuando exista un CLI** (ver 3.0). |
+| "Herramienta de consola" | Al principio era solo una **app web local** (`npm start` → `localhost:4141`). **El CLI `xb41` se añadió el 25 de octubre de 2026 (v1.1.0).** | r/commandline desbloqueado. Se instala desde GitHub (`npm i -g github:xavbal/XB-41_MDTOPDF`); `npx xb41` requiere publicarlo en npm. |
 | "Alto rendimiento" | **Medido:** XB-41 tarda ~0,7 s por PDF; `md-to-pdf` (Puppeteer), ~2,1 s en caliente y ~10 s la primera vez. Pandoc + LaTeX no se ha medido (no hay Pandoc instalado). | Se puede decir "~3× más rápido que md-to-pdf en un documento de 2 páginas", nada más general. |
 | "Ligera" | **Medido:** 1,7 MB de dependencias npm, porque usa el Edge de Windows. `md-to-pdf`: 36,5 MB + ~1,2 GB de caché de Puppeteer. MiKTeX: ~1 GB. | Es el mejor argumento, y es verdad. |
 | "Multiplataforma" | Busca Chrome/Chromium en Linux y macOS, pero **solo está probado en Windows**. `docker/README.md` dice que Docker "no aplica". | Anunciar "Windows; macOS/Linux experimental". **Sin Docker no se publica en r/selfhosted.** |
@@ -68,14 +68,27 @@ Se graba a mano: el plano del editor, el `npm start` en la terminal, Ctrl+P y Gi
 
 Para el formato vertical, recortar al panel de vista previa y ampliarlo, porque la interfaz completa queda pequeña en el móvil.
 
-### Versión B — terminal pura (solo cuando exista el CLI)
+### Versión B — terminal pura (ya se puede grabar con el CLI)
 
 ```
-$ npx xb41 release-notes.md --theme sepia --font Georgia
-✔ release-notes.pdf  (2 pages, 0.7 s)
+$ xb41 release-notes.md --theme sepia --font Georgia
+✔ release-notes.pdf  (370 KB, 0.7 s)
 $ start release-notes.pdf
+$ xb41 docs/*.md --out pdf/ --theme dark
+✔ pdf/intro.pdf  (…)
+✔ pdf/api.pdf    (…)
 ```
-Editor a la izquierda, terminal a la derecha y el PDF que se abre encima. Es el formato que funciona en r/commandline y en X para desarrolladores. **No grabarlo antes de que el CLI exista de verdad.**
+
+| Tiempo | Plano | Texto en pantalla |
+|---|---|---|
+| 0–3 s | Editor con el `.md` técnico; el cursor salta a la terminal | `Markdown → PDF. One command.` |
+| 3–8 s | Se teclea `xb41 release-notes.md --theme sepia --font Georgia` y sale `✔ … 0.7 s` | `0.7 s. No LaTeX.` |
+| 8–15 s | `start release-notes.pdf`: el PDF sepia se abre encima, con planos cerrados de la tipografía | `Real typography.` |
+| 15–22 s | Lote: `xb41 docs/*.md --out pdf/ --theme dark` y varias líneas `✔` en cascada | `Batch. Scriptable. CI-ready.` |
+| 22–28 s | `npm ls` / tamaño de la carpeta: 1,7 MB | `1.7 MB of dependencies.` |
+| 28–35 s | GitHub y el botón **Star** | `github.com/xavbal/XB-41_MDTOPDF ⭐` |
+
+Editor a la izquierda, terminal a la derecha y el PDF que se abre encima. Es el formato que funciona en r/commandline y en X para desarrolladores.
 
 ---
 
@@ -86,7 +99,7 @@ Editor a la izquierda, terminal a la derecha y el PDF que se abre encima. Es el 
 |---|---|---|
 | 1 | Arreglo de seguridad + README nuevo + release v1.0.0 | — |
 | 2 | Paso 1 hecho | **Show HN** (texto en 3.1) |
-| 3 | Paso 1 + **CLI** (`bin/xb41.mjs`, reutilizando `mdToHtml` y la impresión por Edge) | **r/commandline** (3.2) |
+| 3 | Paso 1 + **CLI** ✅ (`bin/xb41.mjs`, v1.1.0) | **r/commandline** (3.2) |
 | 4 | Paso 1 + **Docker** (Chromium en lugar de Edge, como ya hace `.oss-scanner/Dockerfile`) | **r/selfhosted** (3.3) |
 
 Reglas: leer las normas de cada sitio el mismo día, publicar desde la cuenta personal, contestar a todos los comentarios las primeras 3–4 horas y **no pedir estrellas** en HN ni en Reddit.
@@ -114,14 +127,15 @@ On my machine a 2-page document takes ~0.7 s, vs ~2.1 s with md-to-pdf
 (Puppeteer) warm and ~10 s on its first run. The benchmark is tiny and on one
 machine, so take it as indicative.
 
-Things I'd love feedback on: typography defaults, and whether a CLI
-(`npx xb41 file.md`) would be more useful than the UI. Windows is tested;
+There's also a CLI for scripts and batch jobs: `xb41 docs/*.md --out pdf/`.
+
+Things I'd love feedback on: typography defaults and CLI flags. Windows is tested;
 macOS/Linux should work with Chrome/Chromium but are experimental.
 
 MIT, no telemetry, no account.
 ```
 
-### 3.2 r/commandline (cuando exista el CLI)
+### 3.2 r/commandline (CLI disponible desde la v1.1.0)
 
 **Título:**
 ```
@@ -131,13 +145,16 @@ xb41: Markdown → typeset PDF from the terminal, ~0.7s, no LaTeX, no bundled Ch
 ```
 I made a small MIT tool that turns Markdown into print-quality PDFs:
 
-    npx xb41 notes.md --theme sepia --font Georgia
+    npm i -g github:xavbal/XB-41_MDTOPDF
+    xb41 notes.md --theme sepia --font Georgia
+    xb41 docs/*.md --out pdf/
 
 - Uses the Chromium you already have (Edge on Windows, Chrome/Chromium elsewhere),
   so dependencies are 1.7 MB instead of a ~1 GB browser download or TeX install
 - ~0.7s for a 2-page doc on my machine (md-to-pdf: ~2.1s warm)
 - Curly quotes, proper dashes, page numbers, light/dark/sepia themes
 - --no-emoji flag for formal documents
+- Batch mode, non-zero exit code on failure, so it works in scripts/CI
 - Also has a local drag & drop UI if you prefer (npm start)
 
 Repo: https://github.com/xavbal/XB-41_MDTOPDF

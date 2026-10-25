@@ -1,4 +1,5 @@
 import assert from "node:assert";
+import { spawnSync } from "node:child_process";
 import { mdToHtml, stripEmojis, FONT_NAMES, THEME_NAMES } from "../src/converter.mjs";
 
 console.log("Running XB-41 unit tests...");
@@ -21,5 +22,12 @@ console.log("  ✓ mdToHtml basic render passed");
 assert.ok(FONT_NAMES.length > 5, "Fonts should be available");
 assert.ok(THEME_NAMES.includes("claro") && THEME_NAMES.includes("oscuro"), "Themes should include claro/oscuro");
 console.log("  ✓ theme and font exports passed");
+
+// 4. CLI argument handling (no browser needed)
+const cli = (...args) => spawnSync(process.execPath, ["bin/xb41.mjs", ...args], { encoding: "utf8" });
+assert.match(cli("--version").stdout, /^\d+\.\d+\.\d+/, "CLI should print its version");
+assert.strictEqual(cli("x.md", "--theme", "neon").status, 2, "Unknown theme should exit with 2");
+assert.strictEqual(cli("--bogus").status, 2, "Unknown option should exit with 2");
+console.log("  ✓ CLI argument handling passed");
 
 console.log("All tests passed successfully!");

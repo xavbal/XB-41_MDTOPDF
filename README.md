@@ -26,6 +26,29 @@ git clone https://github.com/xavbal/XB-41_MDTOPDF.git && cd XB-41_MDTOPDF && npm
 Then open **http://localhost:4141**, drop a `.md` and click **Export PDF**.
 On Windows you can also double-click **`XB-41 MDtoPDF.bat`**.
 
+## Command line
+
+```bash
+npm install -g github:xavbal/XB-41_MDTOPDF
+xb41 notes.md --theme sepia --font Georgia
+# ✔ notes.pdf  (370 KB, 0.7 s)
+```
+
+```
+xb41 <file.md> [more.md ...] [options]
+
+  -o, --out <path>     Output file (one input) or directory (several inputs)
+  -t, --theme <name>   light | dark | sepia            (default: light)
+  -f, --font <name>    Georgia, Garamond, Cambria…     (default: "Segoe UI")
+  -s, --size <pt>      Font size                       (default: 11)
+  -p, --page <size>    a4 | letter | legal             (default: a4)
+  -m, --margins <m>    normal | narrow | wide          (default: normal)
+      --no-emoji       Strip emojis before rendering
+      --fonts          List available typefaces
+```
+
+Batch: `xb41 docs/*.md --out pdf/`. Exit code is non-zero if any file fails, so it drops into scripts and CI.
+
 ## Why it's fast and light
 
 Most Markdown→PDF tools either download their own Chromium or need a full TeX distribution.
@@ -72,12 +95,15 @@ Everything runs on your machine: no cloud, no account, no telemetry.
 | File | Role |
 |---|---|
 | `src/converter.mjs` | Markdown → HTML with `markdown-it` (typographer) + parametrised print CSS |
-| `src/server.mjs` | Zero-framework Node HTTP server; prints with headless Chromium, isolated profile per conversion |
+| `src/pdf.mjs` | Finds Edge/Chrome and prints HTML to PDF headless, isolated profile per conversion |
+| `src/server.mjs` | Zero-framework Node HTTP server for the UI (loopback only) |
+| `bin/xb41.mjs` | Command-line interface |
 | `src/public/` | The UI — plain HTML/CSS/JS, no frontend dependencies |
 
 ## Roadmap
 
-- [ ] CLI: `npx xb41 report.md --theme sepia --font Georgia`
+- [x] CLI: `xb41 report.md --theme sepia --font Georgia`
+- [ ] Publish to npm (`npx xb41 …`)
 - [ ] Local images next to the `.md`
 - [ ] Docker image
 
