@@ -83,8 +83,10 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-// Loopback only: markdown-it runs with html:true and Edge prints from file://, so a LAN client could exfiltrate local files.
-server.listen(PORT, "127.0.0.1", () => {
+// Loopback by default: markdown-it runs with html:true and Edge prints from file://, so a LAN client could
+// exfiltrate local files. HOST=0.0.0.0 is only for the Docker image, where the filesystem is the container's.
+const HOST = process.env.HOST || "127.0.0.1";
+server.listen(PORT, HOST, () => {
   const edge = findEdge();
   console.log(`\n  XB-41 MDtoPDF  ->  http://localhost:${PORT}`);
   console.log(`  Edge: ${edge || "NO ENCONTRADO (la exportacion a PDF fallara)"}`);

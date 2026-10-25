@@ -1,9 +1,12 @@
-# Docker — no aplica (por ahora)
+# Docker
 
-XB-41 imprime el PDF con **Microsoft Edge headless** del host Windows. Edge no se
-puede empaquetar en un contenedor Linux, así que esta app se ejecuta de forma
-nativa (`XB-41 MDtoPDF.bat` o `npm start`), no en Docker.
+The image is built from the `Dockerfile` at the repository root (Node 22 + Chromium + fonts).
 
-Si en el futuro se quiere contenerizar, habría que sustituir Edge por
-**Playwright + Chromium** dentro de la imagen (base `mcr.microsoft.com/playwright`)
-y cambiar `edgePrintToPdf()` en `src/server.mjs` por `page.pdf()` de Playwright.
+```bash
+docker build -t xb41 .
+docker run --rm -p 127.0.0.1:4141:4141 xb41
+```
+
+Inside the container the server listens on `0.0.0.0` (`HOST` env var) so the published port works;
+outside Docker it stays on `127.0.0.1`. Publish the port on `127.0.0.1` only: the converter renders
+raw HTML, so it should not be reachable from the network.

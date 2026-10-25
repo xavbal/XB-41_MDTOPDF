@@ -16,7 +16,7 @@ Verificado en el código, en GitHub y con mediciones del 25 de octubre de 2026:
 | "Herramienta de consola" | Al principio era solo una **app web local** (`npm start` → `localhost:4141`). **El CLI `xb41` se añadió el 25 de octubre de 2026 (v1.1.0).** | r/commandline desbloqueado. Se instala desde GitHub (`npm i -g github:xavbal/XB-41_MDTOPDF`); `npx xb41` requiere publicarlo en npm. |
 | "Alto rendimiento" | **Medido:** XB-41 tarda ~0,7 s por PDF; `md-to-pdf` (Puppeteer), ~2,1 s en caliente y ~10 s la primera vez. Pandoc + LaTeX no se ha medido (no hay Pandoc instalado). | Se puede decir "~3× más rápido que md-to-pdf en un documento de 2 páginas", nada más general. |
 | "Ligera" | **Medido:** 1,7 MB de dependencias npm, porque usa el Edge de Windows. `md-to-pdf`: 36,5 MB + ~1,2 GB de caché de Puppeteer. MiKTeX: ~1 GB. | Es el mejor argumento, y es verdad. |
-| "Multiplataforma" | Busca Chrome/Chromium en Linux y macOS, pero **solo está probado en Windows**. `docker/README.md` dice que Docker "no aplica". | Anunciar "Windows; macOS/Linux experimental". **Sin Docker no se publica en r/selfhosted.** |
+| "Multiplataforma" | **Probado el 25 de octubre de 2026:** Windows (Edge, ~0,7–0,8 s), macOS M1 Max (Chrome, ~2,1–2,5 s) y Docker/Linux (Chromium, ~0,55 s en caliente). | Se puede anunciar Windows · macOS · Docker. |
 | "Registrado en el OSS Scanner" | El PR `anthropics/oss-scanner#1128` está **abierto, sin fusionar**. | No mencionarlo hasta que se fusione. |
 | Imágenes en el Markdown | Las rutas relativas (`![](img.png)`) **no funcionan**: el HTML se imprime desde `%TEMP%`. | Evitar imágenes locales en las demos. |
 
@@ -100,7 +100,7 @@ Editor a la izquierda, terminal a la derecha y el PDF que se abre encima. Es el 
 | 1 | Arreglo de seguridad + README nuevo + release v1.0.0 | — |
 | 2 | Paso 1 hecho | **Show HN** (texto en 3.1) |
 | 3 | Paso 1 + **CLI** ✅ (`bin/xb41.mjs`, v1.1.0) | **r/commandline** (3.2) |
-| 4 | Paso 1 + **Docker** (Chromium en lugar de Edge, como ya hace `.oss-scanner/Dockerfile`) | **r/selfhosted** (3.3) |
+| 4 | Paso 1 + **Docker** ✅ (`Dockerfile` en la raíz; de momento se construye en local) | **r/selfhosted** (3.3) |
 
 Reglas: leer las normas de cada sitio el mismo día, publicar desde la cuenta personal, contestar a todos los comentarios las primeras 3–4 horas y **no pedir estrellas** en HN ni en Reddit.
 
@@ -162,7 +162,7 @@ Repo: https://github.com/xavbal/XB-41_MDTOPDF
 Feedback on flags/defaults very welcome.
 ```
 
-### 3.3 r/selfhosted (cuando exista Docker)
+### 3.3 r/selfhosted (Docker disponible desde la v1.1.0)
 
 **Título:**
 ```
@@ -173,17 +173,20 @@ XB-41: self-hosted Markdown → PDF converter with live preview and real typogra
 Small self-hosted tool for turning Markdown into clean PDFs without sending
 documents to an online converter.
 
-    docker run -p 127.0.0.1:4141:4141 ghcr.io/xavbal/xb41
+    git clone https://github.com/xavbal/XB-41_MDTOPDF.git && cd XB-41_MDTOPDF
+    docker build -t xb41 .
+    docker run --rm -p 127.0.0.1:4141:4141 xb41
 
 - Drag & drop UI with live preview (same engine as the PDF)
 - 15 typefaces, light/dark/sepia themes, A4/Letter/Legal, page numbers
 - Export PDF, PDF without emojis, HTML or TXT
 - No account, no telemetry, nothing leaves the container
-- Headless Chromium inside the image; ~0.7s per short document
+- Headless Chromium inside the image; ~0.6s per short document once warm
+- Same image also runs the CLI for batch jobs
 
 Repo + screenshots: https://github.com/xavbal/XB-41_MDTOPDF
 ```
-⚠️ El comando `docker run` y la imagen `ghcr.io/xavbal/xb41` **todavía no existen**; el texto está listo para cuando se publiquen.
+Mejora pendiente: publicar una imagen ya construida en GHCR (`docker run ghcr.io/xavbal/xb41`) para no tener que hacer `docker build`. Necesita un workflow de GitHub Actions (cambio de CI, requiere el OK de Xavi) o un token con `write:packages`.
 
 ### 3.4 Instagram, como apoyo
 - El vídeo de la sección 2 en Reel, con el enlace en la bio apuntando al repo.

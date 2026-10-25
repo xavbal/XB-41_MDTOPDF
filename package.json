@@ -2,11 +2,25 @@
   "name": "xb-41-mdtopdf",
   "version": "1.1.0",
   "description": "XB-41 MDtoPDF — convierte Markdown a PDF de calidad con drag & drop, tipografia configurable y opcion sin emojis.",
+  "keywords": ["markdown", "pdf", "markdown-to-pdf", "typography", "cli", "chromium"],
+  "license": "MIT",
+  "author": "Xavier Ballester",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xavbal/XB-41_MDTOPDF.git"
+  },
+  "homepage": "https://github.com/xavbal/XB-41_MDTOPDF#readme",
   "type": "module",
   "main": "src/server.mjs",
   "bin": {
     "xb41": "bin/xb41.mjs"
   },
+  "files": [
+    "bin",
+    "src",
+    "LICENSE",
+    "README.md"
+  ],
   "engines": {
     "node": ">=18.3"
   },
