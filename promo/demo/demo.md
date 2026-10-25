@@ -2,7 +2,7 @@
 
 > "Write in Markdown. Ship a PDF that looks typeset."
 
-XB-41 turns plain `.md` files into **print-quality PDFs** — locally, in seconds, with real typography.
+mdfolio turns plain `.md` files into **print-quality PDFs** — locally, in seconds, with real typography.
 
 ## What's new ✨
 
@@ -31,8 +31,8 @@ const html = mdToHtml(markdown, { font: "Georgia", theme: "sepia" });
 
 ## Why it exists 💡
 
-Most Markdown-to-PDF tools give you either *ugly defaults* or a *LaTeX install*. XB-41 sits in between: drop a file, pick a typeface, export.
+Most Markdown-to-PDF tools give you either *ugly defaults* or a *LaTeX install*. mdfolio sits in between: drop a file, pick a typeface, export.
 
 ---
 
-MIT licensed · 100% local · github.com/xavbal/XB-41_MDTOPDF ⭐
+MIT licensed · 100% local · github.com/xavbal/mdfolio ⭐

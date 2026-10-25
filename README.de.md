@@ -1,4 +1,4 @@
-# XB-41 · MDtoPDF (Deutsch)
+# mdfolio (Deutsch)
 
 [English](README.md) | [Español](README.es.md) | [Català](README.ca.md) | [Deutsch](README.de.md) | [日本語](README.ja.md)
 
@@ -8,13 +8,13 @@ Konvertiert **Markdown → PDF** in veröffentlichungsreifer Qualität mit Drag 
 
 ## Starten
 
-Doppelklick auf **`XB-41 MDtoPDF.bat`** (installiert Abhängigkeiten beim ersten Start, öffnet den Browser unter `http://localhost:4141` und lässt den Server im Hintergrund laufen).
+Doppelklick auf **`mdfolio.bat`** (installiert Abhängigkeiten beim ersten Start, öffnet den Browser unter `http://localhost:4141` und lässt den Server im Hintergrund laufen).
 
 Oder über das Terminal:
 
 ```bash
-git clone https://github.com/xavbal/XB-41_MDTOPDF.git
-cd XB-41_MDTOPDF
+git clone https://github.com/xavbal/mdfolio.git
+cd mdfolio
 npm install   # nur beim ersten Mal
 npm start
 ```

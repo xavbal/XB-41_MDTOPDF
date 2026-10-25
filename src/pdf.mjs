@@ -29,9 +29,9 @@ export function edgePrintToPdf(html) {
     const edge = findEdge();
     if (!edge) return reject(new Error("Microsoft Edge no encontrado en este equipo."));
     const id = crypto.randomBytes(8).toString("hex");
-    const htmlPath = path.join(os.tmpdir(), `xb41-${id}.html`);
-    const pdfPath = path.join(os.tmpdir(), `xb41-${id}.pdf`);
-    const profile = path.join(os.tmpdir(), `xb41-profile-${id}`);
+    const htmlPath = path.join(os.tmpdir(), `mdfolio-${id}.html`);
+    const pdfPath = path.join(os.tmpdir(), `mdfolio-${id}.pdf`);
+    const profile = path.join(os.tmpdir(), `mdfolio-profile-${id}`);
     fs.writeFileSync(htmlPath, html, "utf8");
 
     const fileUrl = "file:///" + htmlPath.replace(/\\/g, "/");

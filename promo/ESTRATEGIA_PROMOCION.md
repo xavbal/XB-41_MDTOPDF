@@ -1,9 +1,10 @@
-# XB-41 MDtoPDF — Estrategia de promoción y crecimiento en GitHub
+# mdfolio — Estrategia de promoción y crecimiento en GitHub
 
 Respuesta a `encargo_claude_code.md` y a las precisiones de Xavi del 25 de octubre de 2026:
 - **Sin fotos personales.** Todo el material visual es software: terminal, editor, la app y el PDF.
 - README con badges, quickstart de una línea y velocidad frente a herramientas pesadas.
 - Textos exactos para r/commandline, r/selfhosted y Show HN.
+- **Nombre público: mdfolio** (antes XB-41 MDtoPDF; renombrado el 25 de octubre de 2026). Repo `xavbal/mdfolio`, comando `mdfolio`. La carpeta local sigue siendo `XB-41_MDTOPDF`.
 
 ---
 
@@ -13,8 +14,8 @@ Verificado en el código, en GitHub y con mediciones del 25 de octubre de 2026:
 
 | Supuesto | Realidad | Qué implica |
 |---|---|---|
-| "Herramienta de consola" | Al principio era solo una **app web local** (`npm start` → `localhost:4141`). **El CLI `xb41` se añadió el 25 de octubre de 2026 (v1.1.0).** | r/commandline desbloqueado. Se instala desde GitHub (`npm i -g github:xavbal/XB-41_MDTOPDF`); `npx xb41` requiere publicarlo en npm. |
-| "Alto rendimiento" | **Medido:** XB-41 tarda ~0,7 s por PDF; `md-to-pdf` (Puppeteer), ~2,1 s en caliente y ~10 s la primera vez. Pandoc + LaTeX no se ha medido (no hay Pandoc instalado). | Se puede decir "~3× más rápido que md-to-pdf en un documento de 2 páginas", nada más general. |
+| "Herramienta de consola" | Al principio era solo una **app web local** (`npm start` → `localhost:4141`). **El CLI `mdfolio` se añadió el 25 de octubre de 2026 (v1.1.0).** | r/commandline desbloqueado. Se instala desde GitHub (`npm i -g github:xavbal/mdfolio`); `npx mdfolio` requiere publicarlo en npm. |
+| "Alto rendimiento" | **Medido:** mdfolio tarda ~0,7 s por PDF; `md-to-pdf` (Puppeteer), ~2,1 s en caliente y ~10 s la primera vez. Pandoc + LaTeX no se ha medido (no hay Pandoc instalado). | Se puede decir "~3× más rápido que md-to-pdf en un documento de 2 páginas", nada más general. |
 | "Ligera" | **Medido:** 1,7 MB de dependencias npm, porque usa el Edge de Windows. `md-to-pdf`: 36,5 MB + ~1,2 GB de caché de Puppeteer. MiKTeX: ~1 GB. | Es el mejor argumento, y es verdad. |
 | "Multiplataforma" | **Probado el 25 de octubre de 2026:** Windows (Edge, ~0,7–0,8 s), macOS M1 Max (Chrome, ~2,1–2,5 s) y Docker/Linux (Chromium, ~0,55 s en caliente). | Se puede anunciar Windows · macOS · Docker. |
 | "Registrado en el OSS Scanner" | El PR `anthropics/oss-scanner#1128` está **abierto, sin fusionar**. | No mencionarlo hasta que se fusione. |
@@ -56,12 +57,12 @@ Además, en GitHub (manual): Settings → Social preview con una captura del tem
 | Tiempo | Plano | Texto en pantalla |
 |---|---|---|
 | 0–3 s | **Gancho.** El editor (VS Code, tema oscuro) con un `.md` técnico (notas de versión con tabla, bloque de código y citas). Corte a ese mismo Markdown impreso con Ctrl+P del navegador: comillas rectas, márgenes genéricos, emojis rotos. | `Markdown → PDF shouldn't need 1 GB of LaTeX.` |
-| 3–7 s | Terminal: se teclea `npm start` (tecleo acelerado) y aparece `XB-41 MDtoPDF -> http://localhost:4141`. | `1.7 MB of dependencies.` |
+| 3–7 s | Terminal: se teclea `npm start` (tecleo acelerado) y aparece `mdfolio -> http://localhost:4141`. | `1.7 MB of dependencies.` |
 | 7–12 s | Se arrastra el `.md` desde el explorador a la app y la vista previa aparece al instante. | `Drop.` |
 | 12–18 s | Tipografía Georgia → Garamond; tema Claro → Sepia → Oscuro. Un corte por cambio. | `Pick a typeface.` |
 | 18–22 s | Clic en **Export PDF** y el PDF se abre a pantalla completa. Contador superpuesto: `0.7 s`. | `Export. ~0.7 s.` |
 | 22–28 s | Planos cerrados del PDF: comillas curvas, tabla, bloque de código, número de página `1 / 2`. | `Real typography. 100% local. MIT.` |
-| 28–35 s | Página de GitHub `xavbal/XB-41_MDTOPDF`, el cursor pulsa **Star** (animación real, sin inventar contador). | `github.com/xavbal/XB-41_MDTOPDF ⭐` |
+| 28–35 s | Página de GitHub `xavbal/mdfolio`, el cursor pulsa **Star** (animación real, sin inventar contador). | `github.com/xavbal/mdfolio ⭐` |
 
 Material ya generado: `promo/demo/out/` contiene `demo.mp4`, `demo-vertical.mp4` (1080×1920), `demo.gif` y `demo-{claro,sepia,oscuro}.pdf`.
 Se graba a mano: el plano del editor, el `npm start` en la terminal, Ctrl+P y GitHub. Con el grabador de Windows (Win+Alt+R) o OBS basta.
@@ -71,10 +72,10 @@ Para el formato vertical, recortar al panel de vista previa y ampliarlo, porque 
 ### Versión B — terminal pura (ya se puede grabar con el CLI)
 
 ```
-$ xb41 release-notes.md --theme sepia --font Georgia
+$ mdfolio release-notes.md --theme sepia --font Georgia
 ✔ release-notes.pdf  (370 KB, 0.7 s)
 $ start release-notes.pdf
-$ xb41 docs/*.md --out pdf/ --theme dark
+$ mdfolio docs/*.md --out pdf/ --theme dark
 ✔ pdf/intro.pdf  (…)
 ✔ pdf/api.pdf    (…)
 ```
@@ -82,11 +83,11 @@ $ xb41 docs/*.md --out pdf/ --theme dark
 | Tiempo | Plano | Texto en pantalla |
 |---|---|---|
 | 0–3 s | Editor con el `.md` técnico; el cursor salta a la terminal | `Markdown → PDF. One command.` |
-| 3–8 s | Se teclea `xb41 release-notes.md --theme sepia --font Georgia` y sale `✔ … 0.7 s` | `0.7 s. No LaTeX.` |
+| 3–8 s | Se teclea `mdfolio release-notes.md --theme sepia --font Georgia` y sale `✔ … 0.7 s` | `0.7 s. No LaTeX.` |
 | 8–15 s | `start release-notes.pdf`: el PDF sepia se abre encima, con planos cerrados de la tipografía | `Real typography.` |
-| 15–22 s | Lote: `xb41 docs/*.md --out pdf/ --theme dark` y varias líneas `✔` en cascada | `Batch. Scriptable. CI-ready.` |
+| 15–22 s | Lote: `mdfolio docs/*.md --out pdf/ --theme dark` y varias líneas `✔` en cascada | `Batch. Scriptable. CI-ready.` |
 | 22–28 s | `npm ls` / tamaño de la carpeta: 1,7 MB | `1.7 MB of dependencies.` |
-| 28–35 s | GitHub y el botón **Star** | `github.com/xavbal/XB-41_MDTOPDF ⭐` |
+| 28–35 s | GitHub y el botón **Star** | `github.com/xavbal/mdfolio ⭐` |
 
 Editor a la izquierda, terminal a la derecha y el PDF que se abre encima. Es el formato que funciona en r/commandline y en X para desarrolladores.
 
@@ -99,7 +100,7 @@ Editor a la izquierda, terminal a la derecha y el PDF que se abre encima. Es el 
 |---|---|---|
 | 1 | Arreglo de seguridad + README nuevo + release v1.0.0 | — |
 | 2 | Paso 1 hecho | **Show HN** (texto en 3.1) |
-| 3 | Paso 1 + **CLI** ✅ (`bin/xb41.mjs`, v1.1.0) | **r/commandline** (3.2) |
+| 3 | Paso 1 + **CLI** ✅ (`bin/mdfolio.mjs`, v1.1.0) | **r/commandline** (3.2) |
 | 4 | Paso 1 + **Docker** ✅ (`Dockerfile` en la raíz; de momento se construye en local) | **r/selfhosted** (3.3) |
 
 Reglas: leer las normas de cada sitio el mismo día, publicar desde la cuenta personal, contestar a todos los comentarios las primeras 3–4 horas y **no pedir estrellas** en HN ni en Reddit.
@@ -108,9 +109,9 @@ Reglas: leer las normas de cada sitio el mismo día, publicar desde la cuenta pe
 
 **Título** (≤ 80 caracteres):
 ```
-Show HN: XB-41 – Markdown to typeset PDF in ~0.7s, using the browser you have
+Show HN: mdfolio – Markdown to typeset PDF in ~0.7s, using the browser you have
 ```
-**URL:** `https://github.com/xavbal/XB-41_MDTOPDF`
+**URL:** `https://github.com/xavbal/mdfolio`
 
 **Primer comentario** (lo publica el autor nada más enviar):
 ```
@@ -118,7 +119,7 @@ Hi HN, I'm Xavier. I write everything in Markdown, and every time I needed a PDF
 for a client I ended up choosing between a browser printout (straight quotes,
 generic margins) and a 1 GB LaTeX install.
 
-XB-41 is a small local web app: drop a .md, pick a typeface (Georgia, Garamond,
+mdfolio is a small local web app: drop a .md, pick a typeface (Georgia, Garamond,
 Cambria…) and a theme (light/dark/sepia), and it prints through the Chromium-based
 Edge that already ships with Windows. No bundled browser, so the npm dependencies
 are 1.7 MB.
@@ -127,7 +128,7 @@ On my machine a 2-page document takes ~0.7 s, vs ~2.1 s with md-to-pdf
 (Puppeteer) warm and ~10 s on its first run. The benchmark is tiny and on one
 machine, so take it as indicative.
 
-There's also a CLI for scripts and batch jobs: `xb41 docs/*.md --out pdf/`.
+There's also a CLI for scripts and batch jobs: `mdfolio docs/*.md --out pdf/`.
 
 Things I'd love feedback on: typography defaults and CLI flags. Windows is tested;
 macOS/Linux should work with Chrome/Chromium but are experimental.
@@ -139,15 +140,15 @@ MIT, no telemetry, no account.
 
 **Título:**
 ```
-xb41: Markdown → typeset PDF from the terminal, ~0.7s, no LaTeX, no bundled Chromium
+mdfolio: Markdown → typeset PDF from the terminal, ~0.7s, no LaTeX, no bundled Chromium
 ```
 **Cuerpo:**
 ```
 I made a small MIT tool that turns Markdown into print-quality PDFs:
 
-    npm i -g github:xavbal/XB-41_MDTOPDF
-    xb41 notes.md --theme sepia --font Georgia
-    xb41 docs/*.md --out pdf/
+    npm i -g github:xavbal/mdfolio
+    mdfolio notes.md --theme sepia --font Georgia
+    mdfolio docs/*.md --out pdf/
 
 - Uses the Chromium you already have (Edge on Windows, Chrome/Chromium elsewhere),
   so dependencies are 1.7 MB instead of a ~1 GB browser download or TeX install
@@ -157,7 +158,7 @@ I made a small MIT tool that turns Markdown into print-quality PDFs:
 - Batch mode, non-zero exit code on failure, so it works in scripts/CI
 - Also has a local drag & drop UI if you prefer (npm start)
 
-Repo: https://github.com/xavbal/XB-41_MDTOPDF
+Repo: https://github.com/xavbal/mdfolio
 
 Feedback on flags/defaults very welcome.
 ```
@@ -166,16 +167,16 @@ Feedback on flags/defaults very welcome.
 
 **Título:**
 ```
-XB-41: self-hosted Markdown → PDF converter with live preview and real typography (Docker, MIT)
+mdfolio: self-hosted Markdown → PDF converter with live preview and real typography (Docker, MIT)
 ```
 **Cuerpo:**
 ```
 Small self-hosted tool for turning Markdown into clean PDFs without sending
 documents to an online converter.
 
-    git clone https://github.com/xavbal/XB-41_MDTOPDF.git && cd XB-41_MDTOPDF
-    docker build -t xb41 .
-    docker run --rm -p 127.0.0.1:4141:4141 xb41
+    git clone https://github.com/xavbal/mdfolio.git && cd mdfolio
+    docker build -t mdfolio .
+    docker run --rm -p 127.0.0.1:4141:4141 mdfolio
 
 - Drag & drop UI with live preview (same engine as the PDF)
 - 15 typefaces, light/dark/sepia themes, A4/Letter/Legal, page numbers
@@ -184,9 +185,9 @@ documents to an online converter.
 - Headless Chromium inside the image; ~0.6s per short document once warm
 - Same image also runs the CLI for batch jobs
 
-Repo + screenshots: https://github.com/xavbal/XB-41_MDTOPDF
+Repo + screenshots: https://github.com/xavbal/mdfolio
 ```
-Mejora pendiente: publicar una imagen ya construida en GHCR (`docker run ghcr.io/xavbal/xb41`) para no tener que hacer `docker build`. Necesita un workflow de GitHub Actions (cambio de CI, requiere el OK de Xavi) o un token con `write:packages`.
+Mejora pendiente: publicar una imagen ya construida en GHCR (`docker run ghcr.io/xavbal/mdfolio`) para no tener que hacer `docker build`. Necesita un workflow de GitHub Actions (cambio de CI, requiere el OK de Xavi) o un token con `write:packages`.
 
 ### 3.4 Instagram, como apoyo
 - El vídeo de la sección 2 en Reel, con el enlace en la bio apuntando al repo.
@@ -202,7 +203,7 @@ GitHub → Insights → Traffic: *Referring sites* y *Popular content*, a las 24
 
 | Archivo | Qué hace |
 |---|---|
-| `record-demo.mjs` | Arranca XB-41 en :4199, genera 3 PDF reales cronometrados, graba la interfaz con Playwright sobre Edge (cambios de tipografía y tema) y produce `demo.mp4`, `demo.gif` y `demo-vertical.mp4` (9:16) con ffmpeg |
+| `record-demo.mjs` | Arranca mdfolio en :4199, genera 3 PDF reales cronometrados, graba la interfaz con Playwright sobre Edge (cambios de tipografía y tema) y produce `demo.mp4`, `demo.gif` y `demo-vertical.mp4` (9:16) con ffmpeg |
 | `demo.md` | Documento de demo: notas de versión con tabla, código, citas y emojis (sin fotos) |
 | `out/` | Salidas (ignoradas por git) |
 

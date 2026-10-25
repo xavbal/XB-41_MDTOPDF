@@ -6,7 +6,7 @@ const statusEl = $("status");
 
 let currentMarkdown = null;
 let currentName = "documento";
-let currentLang = localStorage.getItem("xb41_lang") || "es";
+let currentLang = localStorage.getItem("mdfolio_lang") || "es";
 
 const I18N = {
   es: {
@@ -193,7 +193,7 @@ function t(key) {
 
 function setLanguage(lang) {
   currentLang = I18N[lang] ? lang : "es";
-  localStorage.setItem("xb41_lang", currentLang);
+  localStorage.setItem("mdfolio_lang", currentLang);
 
   document.querySelectorAll(".lang-btn").forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.lang === currentLang);

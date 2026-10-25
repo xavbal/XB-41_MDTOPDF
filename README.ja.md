@@ -1,4 +1,4 @@
-# XB-41 · MDtoPDF (日本語)
+# mdfolio (日本語)
 
 [English](README.md) | [Español](README.es.md) | [Català](README.ca.md) | [Deutsch](README.de.md) | [日本語](README.ja.md)
 
@@ -8,13 +8,13 @@
 
 ## 起動方法
 
-**`XB-41 MDtoPDF.bat`** をダブルクリックします（初回のみ依存関係を自動インストールし、ブラウザで `http://localhost:4141` を開きます）。
+**`mdfolio.bat`** をダブルクリックします（初回のみ依存関係を自動インストールし、ブラウザで `http://localhost:4141` を開きます）。
 
 またはコマンドラインから：
 
 ```bash
-git clone https://github.com/xavbal/XB-41_MDTOPDF.git
-cd XB-41_MDTOPDF
+git clone https://github.com/xavbal/mdfolio.git
+cd mdfolio
 npm install   # 初回のみ
 npm start
 ```

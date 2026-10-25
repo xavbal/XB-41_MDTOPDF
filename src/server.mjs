@@ -88,7 +88,7 @@ const server = http.createServer(async (req, res) => {
 const HOST = process.env.HOST || "127.0.0.1";
 server.listen(PORT, HOST, () => {
   const edge = findEdge();
-  console.log(`\n  XB-41 MDtoPDF  ->  http://localhost:${PORT}`);
+  console.log(`\n  mdfolio  ->  http://localhost:${PORT}`);
   console.log(`  Edge: ${edge || "NO ENCONTRADO (la exportacion a PDF fallara)"}`);
   console.log(`  Ctrl+C para detener.\n`);
 });

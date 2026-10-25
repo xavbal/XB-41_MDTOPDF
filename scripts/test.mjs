@@ -2,7 +2,7 @@ import assert from "node:assert";
 import { spawnSync } from "node:child_process";
 import { mdToHtml, stripEmojis, FONT_NAMES, THEME_NAMES } from "../src/converter.mjs";
 
-console.log("Running XB-41 unit tests...");
+console.log("Running mdfolio unit tests...");
 
 // 1. Test stripEmojis
 const textWithEmoji = "Hello 🚀 World! 🎨 Test 123";
@@ -24,7 +24,7 @@ assert.ok(THEME_NAMES.includes("claro") && THEME_NAMES.includes("oscuro"), "Them
 console.log("  ✓ theme and font exports passed");
 
 // 4. CLI argument handling (no browser needed)
-const cli = (...args) => spawnSync(process.execPath, ["bin/xb41.mjs", ...args], { encoding: "utf8" });
+const cli = (...args) => spawnSync(process.execPath, ["bin/mdfolio.mjs", ...args], { encoding: "utf8" });
 assert.match(cli("--version").stdout, /^\d+\.\d+\.\d+/, "CLI should print its version");
 assert.strictEqual(cli("x.md", "--theme", "neon").status, 2, "Unknown theme should exit with 2");
 assert.strictEqual(cli("--bogus").status, 2, "Unknown option should exit with 2");

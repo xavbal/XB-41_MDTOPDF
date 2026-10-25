@@ -1,4 +1,4 @@
-# XB-41 · MDtoPDF
+# mdfolio
 
 [English](README.md) | [Español](README.es.md) | [Català](README.ca.md) | [Deutsch](README.de.md) | [日本語](README.ja.md)
 
@@ -9,14 +9,14 @@ arrastrar y soltar, tipografía configurable y opción de exportar sin emojis.
 
 ## Cómo arrancar
 
-Doble clic en **`XB-41 MDtoPDF.bat`** (instala dependencias la primera vez, abre
+Doble clic en **`mdfolio.bat`** (instala dependencias la primera vez, abre
 el navegador en `http://localhost:4141` y deja el servidor corriendo).
 
 O clonando el repositorio:
 
 ```bash
-git clone https://github.com/xavbal/XB-41_MDTOPDF.git
-cd XB-41_MDTOPDF
+git clone https://github.com/xavbal/mdfolio.git
+cd mdfolio
 npm install   # solo la primera vez
 npm start
 ```

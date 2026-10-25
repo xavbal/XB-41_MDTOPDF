@@ -1,4 +1,4 @@
-# XB-41 · MDtoPDF (Català)
+# mdfolio (Català)
 
 [English](README.md) | [Español](README.es.md) | [Català](README.ca.md) | [Deutsch](README.de.md) | [日本語](README.ja.md)
 
@@ -8,13 +8,13 @@ Converteix fitxers **Markdown → PDF** amb qualitat de publicació, interfície
 
 ## Com engegar
 
-Doble clic a **`XB-41 MDtoPDF.bat`** (instal·la dependències la primera vegada, obre el navegador a `http://localhost:4141` i deixa el servidor en funcionament).
+Doble clic a **`mdfolio.bat`** (instal·la dependències la primera vegada, obre el navegador a `http://localhost:4141` i deixa el servidor en funcionament).
 
 O clonant el repositori:
 
 ```bash
-git clone https://github.com/xavbal/XB-41_MDTOPDF.git
-cd XB-41_MDTOPDF
+git clone https://github.com/xavbal/mdfolio.git
+cd mdfolio
 npm install   # només la primera vegada
 npm start
 ```

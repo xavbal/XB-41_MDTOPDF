@@ -11,10 +11,10 @@ const THEME_ALIASES = { light: "claro", dark: "oscuro", sepia: "sepia" };
 const PAGE_SIZES = { a4: "A4", letter: "letter", legal: "legal" };
 const MARGINS = { normal: "24mm 22mm 22mm", narrow: "15mm 15mm", wide: "32mm 30mm" };
 
-const HELP = `xb41 ${pkg.version} — Markdown to typeset PDF
+const HELP = `mdfolio ${pkg.version} — Markdown to typeset PDF
 
 Usage:
-  xb41 <file.md> [more.md ...] [options]
+  mdfolio <file.md> [more.md ...] [options]
 
 Options:
   -o, --out <path>     Output file (one input) or directory (several inputs).
@@ -30,13 +30,13 @@ Options:
   -v, --version        Show version
 
 Examples:
-  xb41 README.md
-  xb41 notes.md --theme sepia --font Georgia
-  xb41 docs/*.md --out pdf/
+  mdfolio README.md
+  mdfolio notes.md --theme sepia --font Georgia
+  mdfolio docs/*.md --out pdf/
 `;
 
 function fail(msg, code = 2) {
-  console.error(`xb41: ${msg}`);
+  console.error(`mdfolio: ${msg}`);
   process.exit(code);
 }
 
@@ -58,7 +58,7 @@ try {
     },
   });
 } catch (e) {
-  fail(`${e.message}\nRun "xb41 --help" for usage.`);
+  fail(`${e.message}\nRun "mdfolio --help" for usage.`);
 }
 
 const { values: opt, positionals: inputs } = parsed;
@@ -71,7 +71,7 @@ if (inputs.length === 0) { process.stdout.write(HELP); process.exit(2); }
 const theme = THEME_ALIASES[opt.theme.toLowerCase()] ??
   (THEME_NAMES.includes(opt.theme) ? opt.theme : fail(`unknown theme "${opt.theme}" (light, dark, sepia)`));
 const font = FONT_NAMES.find((f) => f.toLowerCase() === opt.font.toLowerCase()) ??
-  fail(`unknown font "${opt.font}". Run "xb41 --fonts" to list them.`);
+  fail(`unknown font "${opt.font}". Run "mdfolio --fonts" to list them.`);
 const fontSize = Number(opt.size);
 if (!(fontSize >= 6 && fontSize <= 36)) fail(`invalid --size "${opt.size}" (6–36)`);
 const pageSize = PAGE_SIZES[opt.page.toLowerCase()] ?? fail(`unknown page size "${opt.page}" (a4, letter, legal)`);

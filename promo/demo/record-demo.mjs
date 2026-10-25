@@ -1,4 +1,4 @@
-// Records a scripted walkthrough of the XB-41 UI and renders it as GIF + MP4 (horizontal and 9:16).
+// Records a scripted walkthrough of the mdfolio UI and renders it as GIF + MP4 (horizontal and 9:16).
 // Usage: npm install && npm run demo   (needs Microsoft Edge and ffmpeg on PATH)
 import { spawn, execFileSync } from "node:child_process";
 import fs from "node:fs";
@@ -21,7 +21,7 @@ async function waitForServer() {
     try { if ((await fetch(`${URL}/api/fonts`)).ok) return; } catch {}
     await new Promise((r) => setTimeout(r, 200));
   }
-  throw new Error("XB-41 server did not start");
+  throw new Error("mdfolio server did not start");
 }
 
 async function timedConvert(options) {

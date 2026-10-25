@@ -1,10 +1,10 @@
-# Threat Model: XB-41 MDtoPDF
+# Threat Model: mdfolio
 
 Read by Anthropic's OSS Scanner before auditing this repository. Reports go to the primary contact defined in the project enrollment.
 
 ## What this project does
 
-`XB-41 MDtoPDF` is a lightweight web application and service that converts untrusted Markdown input to publication-quality PDFs and HTML. It uses a pure Node.js HTTP server (no external backend frameworks), `markdown-it` for parsing, and a headless Chromium/Edge browser process to render and print the resulting document to PDF.
+`mdfolio` is a lightweight web application and service that converts untrusted Markdown input to publication-quality PDFs and HTML. It uses a pure Node.js HTTP server (no external backend frameworks), `markdown-it` for parsing, and a headless Chromium/Edge browser process to render and print the resulting document to PDF.
 
 ## Untrusted Input Entry Points
 
