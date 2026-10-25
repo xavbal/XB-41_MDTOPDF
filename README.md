@@ -8,10 +8,11 @@ arrastrar y soltar, tipografía configurable y opción de exportar sin emojis.
 Doble clic en **`XB-41 MDtoPDF.bat`** (instala dependencias la primera vez, abre
 el navegador en `http://localhost:4141` y deja el servidor corriendo).
 
-O manualmente:
+O clonando el repositorio:
 
-```powershell
-cd E:\XB_ECOSYSTEM\XB-41_MDTOPDF
+```bash
+git clone https://github.com/xavbal/XB-41_MDTOPDF.git
+cd XB-41_MDTOPDF
 npm install   # solo la primera vez
 npm start
 ```
@@ -55,3 +56,7 @@ npm start
 - **Gotcha Edge headless**: cada conversión usa `--user-data-dir` propio y espera al
   cierre del proceso. Si no, Edge delega en una instancia ya abierta y devuelve
   antes de renderizar → PDF con página de error `ERR_FILE_NOT_FOUND`.
+
+## Licencia
+
+Distribuido bajo la Licencia MIT. Consulta `LICENSE` para más información.
