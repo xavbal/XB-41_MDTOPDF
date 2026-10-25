@@ -161,7 +161,8 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
+// Loopback only: markdown-it runs with html:true and Edge prints from file://, so a LAN client could exfiltrate local files.
+server.listen(PORT, "127.0.0.1", () => {
   const edge = findEdge();
   console.log(`\n  XB-41 MDtoPDF  ->  http://localhost:${PORT}`);
   console.log(`  Edge: ${edge || "NO ENCONTRADO (la exportacion a PDF fallara)"}`);

@@ -1,6 +1,6 @@
 # XB-41 · MDtoPDF (Català)
 
-[Español](README.md) | [English](README.en.md) | [Català](README.ca.md) | [Deutsch](README.de.md) | [日本語](README.ja.md)
+[English](README.md) | [Español](README.es.md) | [Català](README.ca.md) | [Deutsch](README.de.md) | [日本語](README.ja.md)
 
 ---
 
